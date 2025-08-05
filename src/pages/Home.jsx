@@ -11,13 +11,13 @@ const Home = () => {
       .then(data => setProducts(data));
   }, []);
 
-  const featured = products.slice(0, 4);
+  const featured = products.slice(0, 5);
 
   return (
     <div className="home">
       {/* Banner */}
       <div className="home-banner">
-        <h1>Welcome to TrendyCart</h1>
+        <h1>Welcome to ShoppingKart</h1>
         <p>Explore the latest styles & products now!</p>
         <Link to="/products">
           <button className="banner-btn">Shop Now</button>

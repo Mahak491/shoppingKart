@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import './AllProducts.css';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -13,8 +14,6 @@ const AllProducts = () => {
       .then(res => res.json())
       .then(data => {
         setProducts(data);
-
-        // If no search query, show all products
         if (!query) {
           setFiltered(data);
         } else {
@@ -27,15 +26,17 @@ const AllProducts = () => {
   }, [query]);
 
   return (
-    <div>
-      <h2>All Products</h2>
-      <div className="products" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+    <div className="all-products-page">
+      <h2>All Products ({filtered.length})</h2>
+      <div className="product-grid">
         {filtered.length > 0 ? (
           filtered.map(product => (
-            <div key={product.id} style={{ width: '200px', border: '1px solid #ccc', padding: '10px' }}>
+            <div className="product-card" key={product.id}>
               <Link to={`/product/${product.id}`}>
-                <img src={product.image} alt={product.title} width="100" />
-                <p>{product.title}</p>
+                <img src={product.image} alt={product.title} />
+                <p className="product-title">{product.title}</p>
+                <p className="product-price">₹{(product.price * 83).toFixed(0)}</p>
+                {/* <p className="product-stock">In stock: {product.rating.count}</p> */}
               </Link>
             </div>
           ))
