@@ -1,22 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [liked, setLiked] = useState(false);
-
+  const [cartCount, setCartCount] = useState(0);
+  const navigate = useNavigate();
+  // Fetch product
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data));
   }, [id]);
 
+  // Check if liked
   useEffect(() => {
     const likedItems = JSON.parse(localStorage.getItem('likedProducts')) || [];
     const isLiked = likedItems.some(p => p.id === Number(id));
     setLiked(isLiked);
+  }, [id]);
+
+  // Check initial cart quantity
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const existingItem = cartItems.find(item => item.id === Number(id));
+    if (existingItem) {
+      setCartCount(existingItem.quantity);
+    }
   }, [id]);
 
   const toggleLike = () => {
@@ -32,6 +46,27 @@ function ProductDetails() {
     setLiked(!liked);
   };
 
+  const addToCart = () => {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const existingItem = cartItems.find(item => item.id === product.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cartItems.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    setCartCount(prev => prev + 1); // update local count
+  };
+
+
+
+  const handleBuyNow = (product) => {
+    navigate('/checkout', { state: { product } });
+  };
+
+
   if (!product) return <div className="loading">Loading...</div>;
 
   return (
@@ -45,9 +80,15 @@ function ProductDetails() {
         <p className="desc">{product.description}</p>
         <p className="category">Category: {product.category}</p>
         <p className="rating">Rating: {product.rating?.rate} ⭐ ({product.rating?.count} reviews)</p>
-
-        <div className="action-buttons">
-          <button className="add-to-cart-btn">Add to Cart</button>
+         <button className="add-to-cart-btn" onClick={() => handleBuyNow(product)} >
+            Buy Now
+          </button>
+        <div className="action-buttons" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <button className="add-to-cart-btn" onClick={addToCart}>
+            Add to Cart
+          </button>
+          {cartCount > 0 && <span style={{ fontSize: '14px', color: 'green' }}>Added: {cartCount}</span>}
+         
           <button className="like-btn" onClick={toggleLike}>
             {liked ? '❤️' : '🤍'}
           </button>

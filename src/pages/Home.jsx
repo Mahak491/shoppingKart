@@ -45,7 +45,7 @@ const Home = () => {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} TrendyCart. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} ShoppingKart. All rights reserved.</p>
         <div className="footer-links">
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>

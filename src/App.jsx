@@ -6,6 +6,7 @@ import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import AllProducts from './pages/AllProducts';
 import LikedProducts from './pages/LikedProducts';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/liked" element={<LikedProducts />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </Router>
   );
