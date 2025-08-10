@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 import AllProducts from './pages/AllProducts';
 import LikedProducts from './pages/LikedProducts';
 import Checkout from './pages/Checkout';
+import Signup from './pages/Signup';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 function App() {
   return (
@@ -14,12 +16,13 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-         <Route path="/products" element={<AllProducts />} />
+        <Route path="/products" element={<AllProducts />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/liked" element={<LikedProducts />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/liked" element={<ProtectedRoute><LikedProducts /></ProtectedRoute>} />
+        <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

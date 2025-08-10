@@ -33,3 +33,23 @@
 .navbar-right a:hover {
   color: #e91e63;
 }
+
+.navbar-right button {
+  background-color: #e91e63; /* pinkish tone to match hover color */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.navbar-right button:hover {
+  background-color: #d81b60; 
+}
+
+.navbar-right button:active {
+  transform: scale(0.96); 
+}

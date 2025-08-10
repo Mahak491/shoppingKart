@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
-import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../context/AuthContext';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -10,6 +9,8 @@ function ProductDetails() {
   const [liked, setLiked] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const navigate = useNavigate();
+  const { user } = useAuth();
+
   // Fetch product
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -34,6 +35,12 @@ function ProductDetails() {
   }, [id]);
 
   const toggleLike = () => {
+    if (!user) {
+      alert('Please log in to like products.');
+      navigate('/login');
+      return;
+    }
+
     let likedItems = JSON.parse(localStorage.getItem('likedProducts')) || [];
 
     if (liked) {
@@ -47,6 +54,12 @@ function ProductDetails() {
   };
 
   const addToCart = () => {
+    if (!user) {
+      alert('Please log in to add items to the cart.');
+      navigate('/login');
+      return;
+    }
+
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const existingItem = cartItems.find(item => item.id === product.id);
 
@@ -57,17 +70,26 @@ function ProductDetails() {
     }
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    setCartCount(prev => prev + 1); // update local count
+    setCartCount(prev => prev + 1);
   };
 
-
-
-  const handleBuyNow = (product) => {
+  const handleBuyNow = () => {
+    if (!isLoggedIn) {
+      alert('Please log in to proceed with purchase.');
+      navigate('/login');
+      return;
+    }
+    if (isGuestUser) {
+      alert('Guest users cannot purchase. Please log in with a real account.');
+      return;
+    }
     navigate('/checkout', { state: { product } });
   };
 
-
   if (!product) return <div className="loading">Loading...</div>;
+
+  const isGuestUser = user?.email === 'guest@guest.com';
+  const isLoggedIn = !!user;
 
   return (
     <div className="product-details">
@@ -79,16 +101,36 @@ function ProductDetails() {
         <p className="price">₹{(product.price * 83).toFixed(0)}</p>
         <p className="desc">{product.description}</p>
         <p className="category">Category: {product.category}</p>
-        <p className="rating">Rating: {product.rating?.rate} ⭐ ({product.rating?.count} reviews)</p>
-         <button className="add-to-cart-btn" onClick={() => handleBuyNow(product)} >
-            Buy Now
-          </button>
-        <div className="action-buttons" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <p className="rating">
+          Rating: {product.rating?.rate} ⭐ ({product.rating?.count} reviews)
+        </p>
+
+        <button
+          className="add-to-cart-btn"
+          onClick={handleBuyNow}
+          title={
+            !isLoggedIn
+              ? 'Login to purchase'
+              : isGuestUser
+                ? 'Guest users cannot purchase'
+                : ''
+          }
+        >
+          Buy Now
+        </button>
+        <div
+          className="action-buttons"
+          style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+        >
           <button className="add-to-cart-btn" onClick={addToCart}>
             Add to Cart
           </button>
-          {cartCount > 0 && <span style={{ fontSize: '14px', color: 'green' }}>Added: {cartCount}</span>}
-         
+          {cartCount > 0 && (
+            <span style={{ fontSize: '14px', color: 'green' }}>
+              Added: {cartCount}
+            </span>
+          )}
+
           <button className="like-btn" onClick={toggleLike}>
             {liked ? '❤️' : '🤍'}
           </button>

@@ -15,7 +15,7 @@ const Checkout = () => {
   });
 
   const handlePayment = () => {
-    alert("Redirecting to payment gateway... (mock)");
+    alert("Redirecting to payment gateway");
   };
 
   return (
