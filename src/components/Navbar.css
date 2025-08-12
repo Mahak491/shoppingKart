@@ -10,12 +10,33 @@
   z-index: 100;
 }
 
-.navbar-left .search-bar {
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-bar {
   padding: 8px 12px;
   width: 250px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+}
+
+.navbar-categories {
+  display: flex;
+  gap: 15px;
+}
+
+.category-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.category-link:hover {
+  color: #ff6600;
 }
 
 .navbar-right {
@@ -35,7 +56,7 @@
 }
 
 .navbar-right button {
-  background-color: #e91e63; /* pinkish tone to match hover color */
+  background-color: #e91e63;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -47,9 +68,9 @@
 }
 
 .navbar-right button:hover {
-  background-color: #d81b60; 
+  background-color: #d81b60;
 }
 
 .navbar-right button:active {
-  transform: scale(0.96); 
+  transform: scale(0.96);
 }

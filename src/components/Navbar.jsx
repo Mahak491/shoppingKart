@@ -7,7 +7,23 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState(searchInput);
+  const [categories, setCategories] = useState([]);
   const { user, logout } = useAuth();
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products/categories')
+      .then(res => res.json())
+      .then(data => {
+        const cleanedCategories = data.map(cat => {
+          if (cat.toLowerCase() === "men's clothing") return 'men';
+          if (cat.toLowerCase() === "women's clothing") return 'women';
+          return cat;
+        });
+        setCategories(cleanedCategories);
+      })
+      .catch(err => console.error('Error fetching categories:', err));
+  }, []);
+
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -32,7 +48,20 @@ const Navbar = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
+
+        <div className="navbar-categories">
+          {categories.map(cat => (
+            <Link 
+              key={cat} 
+              to={`/category/${cat}`} 
+              className="category-link"
+            >
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </Link>
+          ))}
+        </div>
       </div>
+
       <div className="navbar-right">
         <Link to="/">Home</Link>
         <Link to="/cart">Cart</Link>
