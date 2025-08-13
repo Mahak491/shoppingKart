@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import './Navbar.css';
+import '../styles/Navbar.css';
 import AllProducts from '../pages/AllProducts';
+
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');

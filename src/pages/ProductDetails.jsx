@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './ProductDetails.css';
+import '../styles/ProductDetails.css';
 import { useAuth } from '../context/AuthContext';
 
 function ProductDetails() {

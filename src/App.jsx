@@ -9,11 +9,14 @@ import LikedProducts from './pages/LikedProducts';
 import Checkout from './pages/Checkout';
 import Signup from './pages/Signup';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Category from './pages/Category';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<AllProducts />} />
@@ -23,6 +26,7 @@ function App() {
         <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
         <Route path="/liked" element={<ProtectedRoute><LikedProducts /></ProtectedRoute>} />
         <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+         <Route path="/category/:name" element={<Category />} />
       </Routes>
     </Router>
   );
