@@ -40,7 +40,7 @@ const Home = () => {
       .catch(err => console.error("Error fetching categories:", err));
   }, []);
 
-  const featured = products.slice(0, 5); 
+  const featured = products.slice(0, 10); 
 
   return (
     <div className="home">
