@@ -27,7 +27,7 @@ const AllProducts = () => {
 
   return (
     <div className="all-products-page">
-      <h2>All Products ({filtered.length})</h2>
+      <h2>Sale Products (70% Off)</h2>
       <div className="product-grid">
         {filtered.length > 0 ? (
           filtered.map(product => (
@@ -35,7 +35,15 @@ const AllProducts = () => {
               <Link to={`/product/${product.id}`}>
                 <img src={product.image} alt={product.title} />
                 <p className="product-title">{product.title}</p>
-                <p className="product-price">₹{(product.price * 83).toFixed(0)}</p>
+                <p className="product-price">
+                  <span className="original-price">
+                    ₹{(product.price * 83).toFixed(0)}
+                  </span>
+                  <span className="discounted-price">
+                    ₹{(product.price * 83 * 0.3).toFixed(0)}
+                  </span>
+                </p>
+
                 {/* <p className="product-stock">In stock: {product.rating.count}</p> */}
               </Link>
             </div>
