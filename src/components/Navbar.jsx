@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
-
+import AllProducts from '../pages/AllProducts';
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
@@ -66,6 +66,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
         <Link to="/cart">Cart</Link>
         <Link to="/liked">Liked</Link>
+        <Link to="/products">Products</Link>
         {user ? (
           <>
             <span>Hi, {user.email}</span>

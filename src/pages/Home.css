@@ -161,7 +161,7 @@
 .sale-banner {
   width: 100%;       
   /* max-width: none;     */
-  height: 350px;      
+  height: 250px;      
   object-fit: cover;
   border-radius: 0;   
   cursor: pointer;

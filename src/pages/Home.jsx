@@ -11,7 +11,7 @@ const categoryImages = {
 };
 
 const Home = () => {
-  const [products, setProducts] = useState([]); // ✅ added state for products
+  const [products, setProducts] = useState([]); 
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
