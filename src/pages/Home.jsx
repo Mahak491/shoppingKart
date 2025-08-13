@@ -65,22 +65,25 @@ const Home = () => {
 </div>
 
 
-      <div className="featured-section">
-        <h2>Sale Products</h2>
-        <div className="product-grid">
-          {featured.map(product => (
-            <div className="product-card" key={product.id}>
-              <Link to={`/product/${product.id}`}>
-                <img src={product.image} alt={product.title} />
-                <p className="product-title">{product.title}</p>
-              </Link>
-            </div>
-          ))}
+  <div className="featured-section">
+  <h2 className='space'>Sale Products</h2>
+  <div className="product-carousel">
+    <div className="carousel-track">
+      {[...featured, ...featured].map((product, index) => (
+        <div className="product-card" key={index}>
+          <Link to={`/product/${product.id}`}>
+            <img src={product.image} alt={product.title} />
+            <p className="product-title">{product.title}</p>
+          </Link>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
+
 
       <div className="category-section">
-        <h2>Shop by Category</h2>
+        <h2 className='space'>Shop by Category</h2>
         <div className="category-grid">
           {categories.map(cat => (
             <Link to={`/category/${cat}`} key={cat} className="category-card">
