@@ -27,7 +27,7 @@ const Checkout = () => {
           <div className="product-summary">
             <img src={product.image} alt={product.title} />
             <div className="product-details">
-              <h4>{product.title}</h4>
+              <h5>{product.title}</h5>
               <p>Price per item: ₹{(product.price * 83).toFixed(0)}</p>
               <label>Quantity</label>
               <input
@@ -43,7 +43,7 @@ const Checkout = () => {
           </div>
 
           <div className="address-form">
-            <h5>Shipping Address</h5>
+            <h3 style={{textAlign:"center"}}>Shipping Address</h3>
             <div className="form-group">
               <label>Full Name</label>
               <input
