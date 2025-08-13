@@ -2,16 +2,20 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import salee from '../assets/sale.jpg';
+import maleImg from '../assets/male.jpg';
+import femaleImg from '../assets/female.jpg';
+import electronicsImg from '../assets/electronics.jpg';
+import jewelleryImg from '../assets/jewelary.jpg';
 
 const categoryImages = {
-  men: "https://source.unsplash.com/800x600/?men-fashion",
-  women: "https://source.unsplash.com/800x600/?women-fashion",
-  electronics: "https://source.unsplash.com/800x600/?electronics",
-  jewelery: "https://source.unsplash.com/800x600/?jewelry"
+  men: maleImg,
+  women: femaleImg,
+  electronics: electronicsImg,
+  jewelery: jewelleryImg
 };
 
 const Home = () => {
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -36,7 +40,7 @@ const Home = () => {
       .catch(err => console.error("Error fetching categories:", err));
   }, []);
 
-  const featured = products.slice(0, 5); // ✅ moved after products state exists
+  const featured = products.slice(0, 5); 
 
   return (
     <div className="home">
@@ -49,37 +53,37 @@ const Home = () => {
       </div>
 
       <div className="sale-section">
-  <Link to="/sale" className="sale-link">
-    <div className="sale-banner-wrapper">
-      <img 
-        src={salee}
-        alt="Big Sale Banner"
-        className="sale-banner"
-      />
-      <div className="sale-text">
-        <h2 className="sale-title">Mega Sale!</h2>
-        <p className="sale-subtitle">Up to 70% Off on All Products</p>
+        <Link to="/sale" className="sale-link">
+          <div className="sale-banner-wrapper">
+            <img
+              src={salee}
+              alt="Big Sale Banner"
+              className="sale-banner"
+            />
+            <div className="sale-text">
+              <h2 className="sale-title">Mega Sale!</h2>
+              <p className="sale-subtitle">Up to 70% Off on All Products</p>
+            </div>
+          </div>
+        </Link>
       </div>
-    </div>
-  </Link>
-</div>
 
 
-  <div className="featured-section">
-  <h2 className='space'>Sale Products</h2>
-  <div className="product-carousel">
-    <div className="carousel-track">
-      {[...featured, ...featured].map((product, index) => (
-        <div className="product-card" key={index}>
-          <Link to={`/product/${product.id}`}>
-            <img src={product.image} alt={product.title} />
-            <p className="product-title">{product.title}</p>
-          </Link>
+      <div className="featured-section">
+        <h2 className='space'>Sale Products</h2>
+        <div className="product-carousel">
+          <div className="carousel-track">
+            {[...featured, ...featured].map((product, index) => (
+              <div className="product-card" key={index}>
+                <Link to={`/product/${product.id}`}>
+                  <img src={product.image} alt={product.title} />
+                  <p className="product-title">{product.title}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
+      </div>
 
 
       <div className="category-section">
